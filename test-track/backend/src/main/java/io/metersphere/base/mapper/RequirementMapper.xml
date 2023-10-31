@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.metersphere.base.mapper.RequirementMapper">
+    <resultMap id="BaseResultMap" type="io.metersphere.base.domain.Requirement">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="size" jdbcType="BIGINT" property="size" />
+        <result column="create_time" jdbcType="BIGINT" property="createTime" />
+        <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+        <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+        <result column="storage" jdbcType="VARCHAR" property="storage" />
+        <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+        <result column="tags" jdbcType="VARCHAR" property="tags" />
+        <result column="load_jar" jdbcType="BIT" property="loadJar" />
+        <result column="path" jdbcType="VARCHAR" property="path" />
+        <result column="resource_type" jdbcType="VARCHAR" property="resourceType" />
+        <result column="latest" jdbcType="BIT" property="latest" />
+        <result column="ref_id" jdbcType="VARCHAR" property="refId" />
+        <result column="pdf_path" jdbcType="VARCHAR" property="pdfPath" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="io.metersphere.base.domain.RequirementWithBLOBs">
+        <result column="description" jdbcType="LONGVARCHAR" property="description" />
+        <result column="attach_info" jdbcType="LONGVARCHAR" property="attachInfo" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, `name`, `type`, `size`, create_time, update_time, project_id, `storage`, create_user,
+    update_user, tags, load_jar, `path`, resource_type, latest, ref_id, pdf_path
+    </sql>
+    <sql id="Blob_Column_List">
+        description, attach_info
+    </sql>
+
+    <select id="selectByExampleWithBLOBs" parameterType="io.metersphere.base.domain.RequirementExample" resultMap="ResultMapWithBLOBs">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from requirement
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="io.metersphere.base.domain.RequirementWithBLOBs">
+        insert into requirement (id, `name`, `type`,
+                                   `size`, create_time, update_time,
+                                   project_id, `storage`, create_user,
+                                   update_user, tags,
+                                   load_jar, `path`, resource_type,
+                                   latest, ref_id, description,
+                                   attach_info, pdf_path)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+                #{size,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+                #{projectId,jdbcType=VARCHAR}, #{storage,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR},
+                #{updateUser,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR},
+                #{loadJar,jdbcType=BIT}, #{path,jdbcType=VARCHAR}, #{resourceType,jdbcType=VARCHAR},
+                #{latest,jdbcType=BIT}, #{refId,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR},
+                #{attachInfo,jdbcType=LONGVARCHAR}, #{pdfPath,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="countByExample" parameterType="io.metersphere.base.domain.RequirementExample" resultType="java.lang.Long">
+        select count(*) from requirement
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="io.metersphere.base.domain.RequirementWithBLOBs">
+        update requirement
+        set `name` = #{name,jdbcType=VARCHAR},
+            `type` = #{type,jdbcType=VARCHAR},
+            `size` = #{size,jdbcType=BIGINT},
+            create_time = #{createTime,jdbcType=BIGINT},
+            update_time = #{updateTime,jdbcType=BIGINT},
+            project_id = #{projectId,jdbcType=VARCHAR},
+            `storage` = #{storage,jdbcType=VARCHAR},
+            create_user = #{createUser,jdbcType=VARCHAR},
+            update_user = #{updateUser,jdbcType=VARCHAR},
+            tags = #{tags,jdbcType=VARCHAR},
+            load_jar = #{loadJar,jdbcType=BIT},
+            `path` = #{path,jdbcType=VARCHAR},
+            resource_type = #{resourceType,jdbcType=VARCHAR},
+            latest = #{latest,jdbcType=BIT},
+            ref_id = #{refId,jdbcType=VARCHAR},
+            description = #{description,jdbcType=LONGVARCHAR},
+            attach_info = #{attachInfo,jdbcType=LONGVARCHAR},
+            pdf_path = #{pdfPath,jdbcType=VARCHAR},
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from requirement
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="io.metersphere.base.domain.RequirementWithBLOBs">
+        update requirement
+        <set>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                `type` = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                `size` = #{size,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=VARCHAR},
+            </if>
+            <if test="storage != null">
+                `storage` = #{storage,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="tags != null">
+                tags = #{tags,jdbcType=VARCHAR},
+            </if>
+            <if test="loadJar != null">
+                load_jar = #{loadJar,jdbcType=BIT},
+            </if>
+            <if test="path != null">
+                `path` = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceType != null">
+                resource_type = #{resourceType,jdbcType=VARCHAR},
+            </if>
+            <if test="latest != null">
+                latest = #{latest,jdbcType=BIT},
+            </if>
+            <if test="refId != null">
+                ref_id = #{refId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="attachInfo != null">
+                attach_info = #{attachInfo,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="pdfPath != null">
+                pdf_path = #{pdfPath,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByExample" parameterType="io.metersphere.base.domain.RequirementExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from requirement
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="getRequirementByProject" resultType="io.metersphere.dto.RequirementDTO">
+        SELECT requirement.* FROM requirement
+        WHERE project_id = #{projectId,jdbcType=VARCHAR} AND type != 'RSA_KEY' AND latest IS TRUE
+        <if test="request.name != null and request.name !=''">
+            AND ( requirement.name LIKE CONCAT('%', #{request.name}, '%')
+            OR requirement.tags LIKE CONCAT('%', #{request.name}, '%')
+            OR requirement.description LIKE CONCAT('%', #{request.name}, '%')
+            OR requirement.create_user LIKE CONCAT('%', #{request.name}, '%'))
+        </if>
+        <if test="request.moduleId != null and request.moduleId !=''">
+            AND requirement.module_id = #{request.moduleId}
+        </if>
+        <if test="request.filters != null and request.filters.size() > 0">
+            <foreach collection="request.filters.entrySet()" index="key" item="values">
+                <if test="values != null and values.size() > 0">
+                    <choose>
+                        <when test="key=='type'">
+                            and requirement.type in
+                            <foreach collection="values" item="value" separator="," open="(" close=")">
+                                #{value}
+                            </foreach>
+                        </when>
+                        <when test="key=='createUser'">
+                            and requirement.create_user in
+                            <foreach collection="values" item="value" separator="," open="(" close=")">
+                                #{value}
+                            </foreach>
+                        </when>
+                        <when test="key=='moduleIds'">
+                            and requirement.module_id in
+                            <foreach collection="values" item="value" separator="," open="(" close=")">
+                                #{value}
+                            </foreach>
+                        </when>
+                    </choose>
+                </if>
+            </foreach>
+        </if>
+        <if test="request.orders != null and request.orders.size() > 0">
+            order by
+            <foreach collection="request.orders" separator="," item="order">
+                <if test="order.name == 'name'">
+                    requirement.name ${order.type}
+                </if>
+                <if test="order.name == 'type'">
+                    requirement.type ${order.type}
+                </if>
+                <if test="order.name == 'create_user'">
+                    requirement.create_user ${order.type}
+                </if>
+                <if test="order.name == 'update_user'">
+                    requirement.update_user ${order.type}
+                </if>
+                <if test="order.name == 'create_time'">
+                    requirement.create_time ${order.type}
+                </if>
+                <if test="order.name == 'update_time'">
+                    requirement.update_time ${order.type}
+                </if>
+            </foreach>
+        </if>
+    </select>
+
+    <select id="getTypes" resultType="java.lang.String">
+        SELECT type
+        FROM requirement
+        GROUP BY type
+        HAVING type != 'RSA_KEY'
+    </select>
+
+    <update id="move">
+        update requirement set module_id = #{request.moduleId}
+        where storage != 'GIT' AND id in
+        <foreach collection="request.metadataIds" item="value" separator="," open="(" close=")">
+            #{value}
+        </foreach>
+    </update>
+
+    <select id="moduleCountByMetadataIds" resultType="java.util.Map">
+        select module_id AS moduleId,count(id) AS countNum from requirement
+        where latest IS TRUE AND module_id in
+        <foreach collection="ids" item="value" separator="," open="(" close=")">
+            #{value}
+        </foreach>
+        GROUP BY module_id
+    </select>
+
+    <select id="selectRefIdsByIds" resultType="java.util.Map">
+        select ref_id from requirement
+        where ref_id IS NOT NULL AND id in
+        <foreach collection="ids" item="value" separator="," open="(" close=")">
+            #{value}
+        </foreach>
+    </select>
+
+    <select id="selectIllegalModuleIdListByProjectId" resultType="java.lang.String">
+        SELECT id
+        FROM requirement
+        WHERE project_id = #{0}
+          AND module_id = '';
+    </select>
+
+    <update id="updateModuleIdByProjectId">
+        update requirement
+        set module_id = #{moduleId}
+        where project_id = #{projectId}
+          and module_id is null
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from requirement
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="io.metersphere.base.domain.RequirementExample">
+        delete from file_metadata
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+</mapper>

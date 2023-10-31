@@ -1,0 +1,24 @@
+logging:
+  file:
+    path: /opt/metersphere/logs/system-setting
+management:
+  server:
+    port: ${managementServerPort:7001}
+quartz:
+  enabled: true
+  scheduler-name: systemScheduler
+server:
+  port: ${serverPort:8001}
+spring:
+  application:
+    name: setting
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+    enabled: true
+    encoding: UTF-8
+    locations: classpath:db/migration
+    table: metersphere_version
+    validate-on-migrate: false
+  main:
+    allow-bean-definition-overriding: true
