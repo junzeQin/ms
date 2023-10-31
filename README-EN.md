@@ -1,8 +1,5 @@
 # MeterSphere : Open-source Continuous Testing Platform
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/metersphere/metersphere)](https://github.com/metersphere/metersphere/releases/latest)
-[![GitHub All Releases](https://img.shields.io/github/downloads/metersphere/metersphere/total)](https://github.com/metersphere/metersphere/releases)
-
 > [中文](README.md) | English
 
 MeterSphere is a one-stop open-source enterprise-class continuous testing platform. It covers functions such as tests tracking, interface testing, performance testing, team collaboration and is compatible with open-source standards such as JMeter. It helps development and testing teams to conduct highly scalable automated testing, making full use of elasticity of the cloud, and accelerating the delivery process of high-quality software.
@@ -11,18 +8,6 @@ MeterSphere is a one-stop open-source enterprise-class continuous testing platfo
 -   API Testing: Similar to Postman's experience.
 -   Performance Testing: Compatible with JMeter. Support Kubernetes and Cloud Environment. High concurrency, distributed performance testing with ease.
 -   Team Collaboration: duo-levels tenants system, naturally support team co-op.
-
-## Quick Start
-
-Only need two steps to install MeterSphere：
-
-What you need:
-1.  Prepare a 64-bit Linux host with no less than 8 G RAM
-2.  Log into root user and execute the command down below to install MeterSphere
-
-```sh
-curl -sSL https://github.com/metersphere/metersphere/releases/latest/download/quick_start.sh | sh
-```
 
 ## Technical advantages
 
@@ -157,8 +142,6 @@ curl -sSL https://github.com/metersphere/metersphere/releases/latest/download/qu
 -   Test engine: [JMeter](https://jmeter.apache.org/)
 
 ## License & Copyright
-
-Copyright (c) 2014-2023 飞致云 FIT2CLOUD, All rights reserved.
 
 Licensed under The GNU General Public License version 3 (GPLv3)  (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
